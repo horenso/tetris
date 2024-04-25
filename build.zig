@@ -1,12 +1,12 @@
 const std = @import("std");
-const Build = std.build;
+const Build = std.Build;
 
 pub fn build(b: *Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
     const use_llvm = b.option(bool, "use-llvm", "use the LLVM backend") orelse
-        !(target.getCpu().arch == .x86_64 and target.getObjectFormat() == .elf);
+        !(target.query.cpu_arch == .x86_64 and target.query.ofmt == .elf);
 
     const exe = b.addExecutable(.{
         .name = "tetris",
